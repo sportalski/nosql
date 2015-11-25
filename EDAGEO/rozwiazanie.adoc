@@ -78,7 +78,6 @@ db.trades.aggregate([{"$group" : {"_id" : "$ticket", "count" : {"$sum" : 1}}},
                                       {"$limit" : 5}])
 
 image::https://github.com/sportalski/nosql/blob/master/images/EDAGEO/bilety2.jpg[]
-
 == Mapa GEOJSON
 https://github.com/sportalski/nosql/blob/master/EDAGEO/mapa.geojson[MAPA]
 
