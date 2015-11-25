@@ -2,12 +2,12 @@
 Sylwester Portalski <shace209@o2.pl>
 :icons: font
 
-W projekcie u¿y³em nastêpuj¹cy sprzêt i technologie:
+W projekcie uÅ¼yÅ‚em nastÄ™pujÄ…cy sprzÄ™t i technologie:
 
 [format="csv"]
 |===
 Procesor, Intel(R) Core(TM) XEON X3320 CPU @ 2.75GHz
-Pamiêc RAM, 4GB
+PamiÄ™c RAM, 4GB
 Dysk, HDD
 System operacyjny, Windows 8.1 Professional x64
 MongoDB, 3.0.7
@@ -17,9 +17,9 @@ Psycopg2, 2.6.1
 JetBrains, 14.03
 |===
 
-Podda³em analizie zbiór https://dl.dropboxusercontent.com/u/15056258/mongodb/trades.json[trades]. Plik w formacie .json ma rozmiar 231 MB.
+PoddaÅ‚em analizie zbiÃ³r https://dl.dropboxusercontent.com/u/15056258/mongodb/trades.json[trades]. Plik w formacie .json ma rozmiar 231 MB.
 
-W celu zaimportowania danych do bazy PostgreSQL wygodniej jest operowaæ plikiem w formacie json.
+W celu zaimportowania danych do bazy PostgreSQL wygodniej jest operowaÄ‡ plikiem w formacie json.
 == Import danych
 
 Importujemy do MongoDB pobrany plik trades.json, poleceniem:
@@ -27,11 +27,11 @@ Importujemy do MongoDB pobrany plik trades.json, poleceniem:
 [source]
 mongorestore -d nosql -c trades trades.json
 
-image::https://github.com/sportalski/nosql/EDAGEO/blob/master/images/mongoimport.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EDAGEO/images/mongoimport.jpg[]
 
-Czas importu wyniós³ 37 sekund.
+Czas importu wyniÃ³sÅ‚ 37 sekund.
 
-W celu zaimportowania danych do bazy PostgreSQL, tworzymy najpierw tabelê:
+W celu zaimportowania danych do bazy PostgreSQL, tworzymy najpierw tabelÄ™:
 
 [source]
 CREATE TABLE trades(
@@ -39,47 +39,47 @@ CREATE TABLE trades(
 	data json
 );
 
-Do importu wykorzystamy biblotekê psycopg2 oraz https://github.com/sportalski/nosql/EDAGEO/blob/master/insert.py[skrypt]. 
+Do importu wykorzystamy biblotekÄ™ psycopg2 oraz https://github.com/sportalski/nosql/blob/master/EDAGEO/insert.py[skrypt]. 
 W jego wyniku otrzymamy
 
-image::https://github.com/sportalski/nosql/EDAGEO/blob/master/images/postgresimport.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EDAGEO/images/postgresimport.jpg[]
 
-Czas importu wyniós³ 3 minuty i 25 sekund
+Czas importu wyniÃ³sÅ‚ 3 minuty i 25 sekund
 
-O to wykorzystanie podzespo³ów podczas importowania do Postgres
-image::https://github.com/sportalski/nosql/EDAGEO/blob/master/images/monitor.jpg[]
+O to wykorzystanie podzespoÅ‚Ã³w podczas importowania do Postgres
+image::https://github.com/sportalski/nosql/blob/master/EDAGEO/images/monitor.jpg[]
 
-== Zliczanie rekordów
+== Zliczanie rekordÃ³w
 
 W obu bazach zliczamy rekordy:
 
-image::https://github.com/sportalski/nosql/EDAGEO/blob/master/images/mongopostCount.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EDAGEO/images/mongopostCount.jpg[]
 
 
-Zatem w obu przypadkach zaimportowaliœmy 1000001 rekordów.
+Zatem w obu przypadkach zaimportowaliÅ›my 1000001 rekordÃ³w.
 
 == Agregacje
-Obliczymy jakie bilety wystêpuj¹ najczêœciej a jakie najrzadziej. W tym celu wykorzystamy zapytanie:
+Obliczymy jakie bilety wystÄ™pujÄ… najczÄ™Å›ciej a jakie najrzadziej. W tym celu wykorzystamy zapytanie:
 [source]
 SELECT data->>'ticket' as coste, COUNT(*) as Quantity FROM trades GROUP BY data->>'ticket' ORDER BY Quantity DESC LIMIT 100;
 
-W wyniku niego otrzymujemy listê 100 najczêœciej wystêpuj¹cych biletów:
+W wyniku niego otrzymujemy listÄ™ 100 najczÄ™Å›ciej wystÄ™pujÄ…cych biletÃ³w:
 
-image::https://github.com/sportalski/nosql/EDAGEO/blob/master/images/bilety.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EDAGEO/images/bilety.jpg[]
 
-Trochê dziwna ta baza :)
+TrochÄ™ dziwna ta baza :)
 
-obliczmy jakie bilety wystêpuj¹ najrzadziej:
-Jako, ¿e baza posiada milion rekordów a ka¿dy bilet wystêpujê po 2500 razy to limit ustawiony na 5.
+obliczmy jakie bilety wystÄ™pujÄ… najrzadziej:
+Jako, Å¼e baza posiada milion rekordÃ³w a kaÅ¼dy bilet wystÄ™pujÄ™ po 2500 razy to limit ustawiony na 5.
 [source]
 db.trades.aggregate([{"$group" : {"_id" : "$ticket", "count" : {"$sum" : 1}}},
                                       {"$sort" : {"count" : 1}},
                                       {"$limit" : 5}])
                         
-image::https://github.com/sportalski/nosql/EDAGEO/blob/master/images/bilety2.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/images/EDAGEO/bilety2.jpg[]
 
 == Mapa GEOJSON
-https://github.com/sportalski/nosql/EDAGEO/blob/master/mapa.geojson[MAPA]
+https://github.com/sportalski/nosql/blob/master/EDAGEO/mapa.geojson[MAPA]
 
 
 
