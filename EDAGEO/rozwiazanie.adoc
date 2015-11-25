@@ -1,4 +1,4 @@
-= Technologie nosql - zaliczenie
+= Bazy nosql - zaliczenie
 Sylwester Portalski <shace209@o2.pl>
 :icons: font
 
