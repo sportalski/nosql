@@ -47,6 +47,7 @@ image::https://github.com/sportalski/nosql/blob/master/EDAGEO/images/postgresimp
 Czas importu wyniósł 3 minuty i 25 sekund
 
 O to wykorzystanie podzespołów podczas importowania do Postgres
+
 image::https://github.com/sportalski/nosql/blob/master/EDAGEO/images/monitor.jpg[]
 
 == Zliczanie rekordów
@@ -75,7 +76,6 @@ Jako, że baza posiada milion rekordów a każdy bilet występuję po 2500 razy 
 db.trades.aggregate([{"$group" : {"_id" : "$ticket", "count" : {"$sum" : 1}}},
                                       {"$sort" : {"count" : 1}},
                                       {"$limit" : 5}])
-                        
 image::https://github.com/sportalski/nosql/blob/master/images/EDAGEO/bilety2.jpg[]
 
 == Mapa GEOJSON
