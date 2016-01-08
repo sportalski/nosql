@@ -83,7 +83,7 @@ image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt6.jp
 [source]
 W celu napisania kolejnych Aggregation Pipeline wykorzystalem Pythona i PyMongo
 
-1. Pierwszy https://github.com/sportalski/nosql/EGZAMIN/blob/master/pierwsze.py[skrypt] zliczaj¹cy ilosc rekordów.
+1. Pierwszy https://github.com/sportalski/nosql/EGZAMIN/blob/master/pierwsze.py[skrypt] zliczajacy ilosc rekordów.
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/pierwsze.jpg[]
 
