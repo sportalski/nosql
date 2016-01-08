@@ -1,4 +1,4 @@
-= Technologie nosql - zaliczenie - aggregation pipeline & madreduce
+= Technologie nosql - zaliczenie - aggregation pipeline & mapreduce
 Sylwester Portalski <shace209@o2.pl>
 :icons: font
 
