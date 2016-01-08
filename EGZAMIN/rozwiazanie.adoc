@@ -39,6 +39,7 @@ image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/details.jp
 1. Uzylem agregacji 'group' w celu zliczenia rekordow z roznymi ID.
 [source]
 db.trades.aggregate([{$group : {_id: "$details", num_t : {$sum : 1}}}])
+
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt1.jpg[]
 
 2. Dla kazdego ID sumujemy pole 'Shares'
@@ -53,7 +54,7 @@ db.trades.aggregate([{"$project" : {"_id" : 0, "total" : {"$sum" : "$price"}}},{
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt3.jpg[]
 
-4. Za pomoc¹ $project usuwamy z pokazu  kolumnce „_id” i zastepujemy zawartoscia kolumny „details”
+4. Za pomoca $project usuwamy z pokazu  kolumnce „_id” i zastepujemy zawartoscia kolumny „details”
 [source]
 db.trades.aggregate([{"$project" : {"_id" : 0, "odnosnik" :"$details"}}])
 
