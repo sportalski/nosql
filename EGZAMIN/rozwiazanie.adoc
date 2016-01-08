@@ -83,29 +83,29 @@ image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt7.jp
 [source]
 W celu napisania kolejnych Aggregation Pipeline wykorzystalem Pythona i PyMongo
 
-1. Pierwszy https://github.com/sportalski/nosql/EGZAMIN/blob/master/pierwsze.py[skrypt] zliczajacy ilosc rekordów.
+1.Pierwszy https://github.com/sportalski/nosql/EGZAMIN/blob/master/pierwsze.py[skrypt] zliczajacy ilosc rekordów.
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/pierwsze.jpg[]
 
-2. Drugi https://github.com/sportalski/nosql/EGZAMIN/blob/master/drugie.py[skrypt] w którym grupujemy przez ID oraz zliczamy ile te id posiada shares
+2.Drugi https://github.com/sportalski/nosql/EGZAMIN/blob/master/drugie.py[skrypt] w którym grupujemy przez ID oraz zliczamy ile te id posiada shares
 
 Jako ze ilosc id jest spora to zastopowalem wykonywanie skryptu gdyz jak widaæ dziala on prawidlowo i nie jest wymagane dalsze sprawdzanie.
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/drugie.jpg[]
 
-3. Trzeci https://github.com/sportalski/nosql/EGZAMIN/blob/master/trzecie.py[skrypt] – grupujemy ID-Ticket oraz zliczamy ile posiada price – sum, i sortujemy
+3.Trzeci https://github.com/sportalski/nosql/EGZAMIN/blob/master/trzecie.py[skrypt] – grupujemy ID-Ticket oraz zliczamy ile posiada price – sum, i sortujemy
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/trzecie.jpg[]
 
-4. Czwarty https://github.com/sportalski/nosql/EGZAMIN/blob/master/czwarte.py[skrypt] - Za pomoca $project usuwamy z pokazu  kolumnce „_id” i zastepujemy zawartoscia kolumny „details”
+4.Czwarty https://github.com/sportalski/nosql/EGZAMIN/blob/master/czwarte.py[skrypt] - Za pomoca $project usuwamy z pokazu  kolumnce „_id” i zastepujemy zawartoscia kolumny „details”
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/czwarte.jpg[]
 
-5. Piaty https://github.com/sportalski/nosql/EGZAMIN/blob/master/piate.py[skrypt] - u¿ylismy dwóch poprzednich operacji w jednej i uzyskalismy prices jako zródlo pokazania oraz ID –  kolumna ticket.
+5.Piaty https://github.com/sportalski/nosql/EGZAMIN/blob/master/piate.py[skrypt] - u¿ylismy dwóch poprzednich operacji w jednej i uzyskalismy prices jako zródlo pokazania oraz ID –  kolumna ticket.
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/piate.jpg[]
 
-6. Szósty https://github.com/sportalski/nosql/EGZAMIN/blob/master/szoste.py[skrypt] - Z pomoca $unwind oraz $group uzyskalismy  ktore tickety posiadaja jakie bidy, addtoset dodane aby wygladalo to schludnie
+6.Szósty https://github.com/sportalski/nosql/EGZAMIN/blob/master/szoste.py[skrypt] - Z pomoca $unwind oraz $group uzyskalismy  ktore tickety posiadaja jakie bidy, addtoset dodane aby wygladalo to schludnie
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/szoste.jpg[]
 
