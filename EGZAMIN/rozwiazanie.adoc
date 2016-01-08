@@ -13,6 +13,7 @@ System operacyjny, Windows 8.1 Professional x64
 MongoDB, 3.0.7
 Python, 2.7.7
 JetBrains, 14.03
+PyMongo, 2.7.7
 |===
 
 Poddalem analizie zbior 1000001 rekordów w bazie https://dl.dropboxusercontent.com/u/15056258/mongodb/trades.json[trades]. Plik w formacie .json ma rozmiar 231 MB.
@@ -79,7 +80,8 @@ db.trades.aggregate([{"$unwind" : "$details.bids"}, {"$group": {"_id":"$ticket",
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt6.jpg[]
 
 
-[source]W celu napisania kolejnych Aggregation Pipeline wykorzystalem Pythona i PyMongo
+[source]
+W celu napisania kolejnych Aggregation Pipeline wykorzystalem Pythona i PyMongo
 
 1. Pierwszy https://github.com/sportalski/nosql/EGZAMIN/blob/master/pierwsze.py[skrypt] zliczaj¹cy ilosc rekordów.
 
