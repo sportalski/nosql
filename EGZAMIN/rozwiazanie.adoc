@@ -24,85 +24,85 @@ Importujemy do MongoDB pobrany plik trades.json, poleceniem:
 [source]
 mongoimport -d nosql -c trades trades.json
 
-image::https://github.com/sportalski/nosql/EDAGEO/blob/master/images/mongoimport.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EDAGEO/images/mongoimport.jpg[]
 
 Czas importu wyniosl 37 sekund.
 
 Ogolny pokaz bazy danych:
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/pokazdb2.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/pokazdb2.jpg[]
 
 Baza jest ciekawa gdyz posiada ona duzo parametrów w jednym -'details'
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/details.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/details.jpg[]
 == Agregacje
 1. Uzylem agregacji 'group' w celu zliczenia rekordow z roznymi ID.
 [source]
 db.trades.aggregate([{$group : {_id: "$details", num_t : {$sum : 1}}}])
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/skrypt1.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt1.jpg[]
 
 2. Dla kazdego ID sumujemy pole 'Shares'
 [source]
 db.trades.aggregate([{"$group" : {"_id" : "$_id", "total" : {"$sum" : "$shares"}}}])
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/skrypt2.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt2.jpg[]
 
 3.A tutaj dla kazdego biletu zliczamy 'price' i sortujemy
 [source]
 db.trades.aggregate([{"$project" : {"_id" : 0, "total" : {"$sum" : "$price"}}},{"$sort": { "_id": 1}}])
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/skrypt3.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt3.jpg[]
 
 4. Za pomoc¹ $project usuwamy z pokazu  kolumnce „_id” i zastepujemy zawartoscia kolumny „details”
 [source]
 db.trades.aggregate([{"$project" : {"_id" : 0, "odnosnik" :"$details"}}])
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/skrypt4.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt4.jpg[]
 
 5. A teraz uzylismy dwóch poprzednich operacji w jednej i uzyskaliœmy 'prices' jako zrodlo pokazania oraz ID –  kolumna ticket.
 [source]
 db.trades.aggregate([{"$group" : {"_id" : "$ticket", "prices" :{ "$sum": "$price"}}},{ "$project": {"_id": 0, "Id": "$_id", "prices": 1}}])
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/skrypt5.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt5.jpg[]
 
 6. Poleceniem $unwind rozpisaliœmy dla kazdego ID kolumne „asks”
 [source]
 db.trades.aggregate([{$unwind : "$details.asks"}])
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/skrypt6.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt6.jpg[]
 
 7. Z pomoca $unwind oraz $group uzyskalismy  które 'tickety' posiadaja jakie 'bidy'
 [source]
 db.trades.aggregate([{"$unwind" : "$details.bids"}, {"$group": {"_id":"$ticket","Bids":{"$addToSet": "$details.bids"}}}])
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/skrypt6.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt6.jpg[]
 
 
 [source]W celu napisania kolejnych Aggregation Pipeline wykorzystalem Pythona i PyMongo
 
 1. Pierwszy https://github.com/sportalski/nosql/EGZAMIN/blob/master/pierwsze.py[skrypt] zliczaj¹cy ilosc rekordów.
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/pierwsze.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/pierwsze.jpg[]
 
 2. Drugi https://github.com/sportalski/nosql/EGZAMIN/blob/master/drugie.py[skrypt] w którym grupujemy przez ID oraz zliczamy ile te id posiada shares
 
 Jako ze ilosc id jest spora to zastopowalem wykonywanie skryptu gdyz jak widaæ dziala on prawidlowo i nie jest wymagane dalsze sprawdzanie.
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/drugie.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/drugie.jpg[]
 
 3. Trzeci https://github.com/sportalski/nosql/EGZAMIN/blob/master/trzecie.py[skrypt] – grupujemy ID-Ticket oraz zliczamy ile posiada price – sum, i sortujemy
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/trzecie.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/trzecie.jpg[]
 
 4. Czwarty https://github.com/sportalski/nosql/EGZAMIN/blob/master/czwarte.py[skrypt] - Za pomoca $project usuwamy z pokazu  kolumnce „_id” i zastepujemy zawartoscia kolumny „details”
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/czwarte.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/czwarte.jpg[]
 
 5. Piaty https://github.com/sportalski/nosql/EGZAMIN/blob/master/piate.py[skrypt] - u¿ylismy dwóch poprzednich operacji w jednej i uzyskalismy prices jako zródlo pokazania oraz ID –  kolumna ticket.
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/piate.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/piate.jpg[]
 
 6. Szósty https://github.com/sportalski/nosql/EGZAMIN/blob/master/szoste.py[skrypt] - Z pomoca $unwind oraz $group uzyskalismy  ktore tickety posiadaja jakie bidy, addtoset dodane aby wygladalo to schludnie
 
-image::https://github.com/sportalski/nosql/EGZAMIN/blob/master/images/szoste.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/szoste.jpg[]
 
