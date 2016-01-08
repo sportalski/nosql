@@ -25,7 +25,7 @@ W celu zaimportowania danych do bazy PostgreSQL wygodniej jest operowaæ plikiem 
 Importujemy do MongoDB pobrany plik trades.json, poleceniem:
 
 [source]
-mongorestore -d nosql -c trades trades.json
+mongoimport -d nosql -c trades trades.json
 
 image::https://github.com/sportalski/nosql/EDAGEO/blob/master/images/mongoimport.jpg[]
 
