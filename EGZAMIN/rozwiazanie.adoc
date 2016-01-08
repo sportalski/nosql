@@ -37,13 +37,13 @@ Baza jest ciekawa gdyz posiada ona duzo parametrów w jednym -'details'
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/details.jpg[]
 == Agregacje
-1. Uzylem agregacji 'group' w celu zliczenia rekordow z roznymi ID.
+1.Uzylem agregacji 'group' w celu zliczenia rekordow z roznymi ID.
 [source]
 db.trades.aggregate([{$group : {_id: "$details", num_t : {$sum : 1}}}])
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt1.jpg[]
 
-2. Dla kazdego ID sumujemy pole 'Shares'
+2.Dla kazdego ID sumujemy pole 'Shares'
 [source]
 db.trades.aggregate([{"$group" : {"_id" : "$_id", "total" : {"$sum" : "$shares"}}}])
 
@@ -55,29 +55,29 @@ db.trades.aggregate([{"$project" : {"_id" : 0, "total" : {"$sum" : "$price"}}},{
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt3.jpg[]
 
-4. Za pomoca $project usuwamy z pokazu  kolumnce „_id” i zastepujemy zawartoscia kolumny „details”
+4.Za pomoca $project usuwamy z pokazu  kolumnce „_id” i zastepujemy zawartoscia kolumny „details”
 [source]
 db.trades.aggregate([{"$project" : {"_id" : 0, "odnosnik" :"$details"}}])
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt4.jpg[]
 
-5. A teraz uzylismy dwóch poprzednich operacji w jednej i uzyskaliœmy 'prices' jako zrodlo pokazania oraz ID –  kolumna ticket.
+5.A teraz uzylismy dwóch poprzednich operacji w jednej i uzyskaliœmy 'prices' jako zrodlo pokazania oraz ID –  kolumna ticket.
 [source]
 db.trades.aggregate([{"$group" : {"_id" : "$ticket", "prices" :{ "$sum": "$price"}}},{ "$project": {"_id": 0, "Id": "$_id", "prices": 1}}])
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt5.jpg[]
 
-6. Poleceniem $unwind rozpisaliœmy dla kazdego ID kolumne „asks”
+6.Poleceniem $unwind rozpisaliœmy dla kazdego ID kolumne „asks”
 [source]
 db.trades.aggregate([{$unwind : "$details.asks"}])
 
 image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt6.jpg[]
 
-7. Z pomoca $unwind oraz $group uzyskalismy  które 'tickety' posiadaja jakie 'bidy'
+7.Z pomoca $unwind oraz $group uzyskalismy  które 'tickety' posiadaja jakie 'bidy'
 [source]
 db.trades.aggregate([{"$unwind" : "$details.bids"}, {"$group": {"_id":"$ticket","Bids":{"$addToSet": "$details.bids"}}}])
 
-image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt6.jpg[]
+image::https://github.com/sportalski/nosql/blob/master/EGZAMIN/images/skrypt7.jpg[]
 
 
 [source]
